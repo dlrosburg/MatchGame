@@ -33,7 +33,6 @@ namespace MatchGame
             timer.Interval = TimeSpan.FromSeconds(.1);
             timer.Tick += Timer_Tick;
             SetUpGame();
-            timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -44,7 +43,6 @@ namespace MatchGame
             {
                 timer.Stop();
                 timeTextBlock.Text = timeTextBlock.Text + " - Play again?";
-                matchesFound = 0;
             }
         }
 
@@ -73,6 +71,9 @@ namespace MatchGame
                     animalEmoji.RemoveAt(index);
                 }
             }
+            timer.Start();
+            tenthsOfSecondsElapsed = 0;
+            matchesFound = 0;
         }
 
         TextBlock lastTextBlockClicked;
@@ -89,9 +90,9 @@ namespace MatchGame
             }
             else if (textBlock.Text == lastTextBlockClicked.Text)
             {
+                matchesFound++; 
                 textBlock.Visibility = Visibility.Hidden;
                 findingMatch = false;
-                matchesFound++;
             }
             else
             {
